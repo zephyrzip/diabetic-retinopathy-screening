@@ -1,0 +1,440 @@
+/* ========================================
+   DOCTOR / OPHTHALMOLOGIST DASHBOARD
+======================================== */
+
+.doctor-layout {
+  min-height: 100vh;
+  display: flex;
+  background: #f4f8fa;
+  color: #172433;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", Arial, sans-serif;
+}
+
+/* ========================================
+   DOCTOR SIDEBAR
+======================================== */
+
+.doctor-sidebar {
+  width: 260px;
+  min-height: 100vh;
+  background: #0f1e2e;
+  color: white;
+  padding: 25px 16px;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 100;
+}
+
+.doctor-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px 24px;
+  font-size: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 16px;
+}
+
+.doctor-logo span {
+  color: #087f8c;
+  font-size: 24px;
+}
+
+.doctor-portal-pill {
+  font-size: 10px;
+  font-weight: 700;
+  background: rgba(8, 127, 140, 0.25);
+  color: #20a6b3;
+  padding: 3px 8px;
+  border-radius: 12px;
+  letter-spacing: 0.8px;
+  margin-left: auto;
+}
+
+.doctor-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.doctor-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  color: #9eacba;
+  text-decoration: none;
+  border-radius: 9px;
+  font-size: 13.5px;
+  transition: 0.2s ease;
+  position: relative;
+}
+
+.doctor-nav-item span:first-child {
+  width: 20px;
+  text-align: center;
+  font-size: 17px;
+}
+
+.doctor-nav-item:hover {
+  background: rgba(255, 255, 255, 0.07);
+  color: white;
+}
+
+.doctor-nav-item.active {
+  background: #087f8c;
+  color: white;
+}
+
+.nav-count-badge {
+  margin-left: auto;
+  background: #e35d5d;
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 10px;
+}
+
+.doctor-sidebar-bottom {
+  margin-top: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.doctor-nav-item.logout {
+  color: #e28c8c;
+}
+
+.doctor-nav-item.logout:hover {
+  background: rgba(226, 140, 140, 0.15);
+  color: #ff9d9d;
+}
+
+/* ========================================
+   MAIN CONTENT AREA
+======================================== */
+
+.doctor-main {
+  margin-left: 260px;
+  width: calc(100% - 260px);
+  min-height: 100vh;
+  padding: 32px 42px;
+  box-sizing: border-box;
+}
+
+/* ========================================
+   TOPBAR
+======================================== */
+
+.doctor-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.doctor-page-label {
+  margin: 0 0 5px;
+  color: #087f8c;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.doctor-topbar h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  color: #102a43;
+}
+
+.doctor-user {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.doctor-avatar {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #e0f4f4;
+  color: #087f8c;
+  font-size: 13px;
+  font-weight: 700;
+  border: 2px solid #bce6e7;
+}
+
+.doctor-user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.doctor-user-info strong {
+  font-size: 13.5px;
+  color: #102a43;
+}
+
+.doctor-user-info small {
+  margin-top: 2px;
+  color: #64748b;
+  font-size: 11px;
+}
+
+/* ========================================
+   WELCOME CARD
+======================================== */
+
+.doctor-welcome {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 26px 30px;
+  margin-bottom: 25px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #ffffff 0%, #f6fcfc 100%);
+  border: 1px solid #d9ebed;
+  box-shadow: 0 4px 15px rgba(8, 127, 140, 0.04);
+}
+
+.welcome-label {
+  color: #087f8c;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.doctor-welcome h2 {
+  margin: 6px 0;
+  font-size: 22px;
+  color: #14202e;
+}
+
+.doctor-welcome p {
+  margin: 0;
+  color: #64748b;
+  font-size: 13.5px;
+  max-width: 580px;
+  line-height: 1.5;
+}
+
+.doctor-primary-button {
+  padding: 12px 20px;
+  border-radius: 9px;
+  background: #087f8c;
+  color: white;
+  text-decoration: none;
+  font-size: 13.5px;
+  font-weight: 600;
+  transition: 0.25s ease;
+  white-space: nowrap;
+}
+
+.doctor-primary-button:hover {
+  background: #066b76;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(8, 127, 140, 0.25);
+}
+
+/* ========================================
+   STAT CARDS
+======================================== */
+
+.doctor-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.doctor-stat-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 20px;
+  background: white;
+  border: 1px solid #e3ebef;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+}
+
+.doctor-stat-card div:last-child {
+  display: flex;
+  flex-direction: column;
+}
+
+.doctor-stat-card span {
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.doctor-stat-card strong {
+  margin-top: 3px;
+  font-size: 24px;
+  color: #102a43;
+}
+
+.doctor-stat-card small {
+  margin-top: 2px;
+  color: #94a3b8;
+  font-size: 10.5px;
+}
+
+/* ========================================
+   CLINICAL REVIEW PANEL & TABLE
+======================================== */
+
+.doctor-panel {
+  background: white;
+  border: 1px solid #e3ebef;
+  border-radius: 16px;
+  margin-bottom: 28px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(15, 23, 42, 0.03);
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 26px;
+  border-bottom: 1px solid #edf1f3;
+}
+
+.panel-label {
+  color: #087f8c;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.3px;
+}
+
+.panel-header h2 {
+  margin: 5px 0 0;
+  font-size: 19px;
+  color: #102a43;
+}
+
+.panel-header a {
+  color: #087f8c;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.panel-header a:hover {
+  text-decoration: underline;
+}
+
+.clinical-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.badge-stage-0 { background: #f0fdf4; color: #16a34a; }
+.badge-stage-1 { background: #fefce8; color: #ca8a04; }
+.badge-stage-2 { background: #fff7ed; color: #ea580c; }
+.badge-stage-3 { background: #fef2f2; color: #dc2626; }
+.badge-stage-4 { background: #450a0a; color: #fecaca; }
+
+.priority-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.priority-urgent {
+  background: #fee2e2;
+  color: #ef4444;
+}
+
+.priority-high {
+  background: #ffedd5;
+  color: #f97316;
+}
+
+.priority-normal {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.review-action-btn {
+  padding: 7px 14px;
+  border-radius: 7px;
+  background: #087f8c;
+  color: white;
+  border: none;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: 0.2s ease;
+}
+
+.review-action-btn:hover {
+  background: #066b76;
+}
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .doctor-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .doctor-sidebar {
+    width: 70px;
+    padding: 20px 8px;
+  }
+
+  .doctor-logo strong,
+  .doctor-portal-pill,
+  .doctor-nav-item span:not(:first-child),
+  .nav-count-badge {
+    display: none;
+  }
+
+  .doctor-nav-item {
+    justify-content: center;
+  }
+
+  .doctor-main {
+    margin-left: 70px;
+    width: calc(100% - 70px);
+    padding: 24px 18px;
+  }
+
+  .doctor-welcome {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .doctor-user-info {
+    display: none;
+  }
+}
