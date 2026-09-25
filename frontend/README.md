@@ -1,16 +1,10 @@
-# React + Vite
+# RetinaGuard frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The frontend contains two entry points that serve different needs:
 
-Currently, two official plugins are available:
+- `index.html` opens the routed screening experience, including public, operator, and doctor pages.
+- `dashboard.html` opens the API-connected dashboard for screening cases, review queue, and reports.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Start the Vite server with `npm run dev` from this directory, then open `/` or `/dashboard.html`. The API-connected dashboard uses `http://localhost:8000/api` in development by default. Set `VITE_API_BASE_URL` in `frontend/.env` to use another API URL.
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Build the frontend with `npm run build`. Both entry points are included in the production build.
