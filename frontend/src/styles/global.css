@@ -1,0 +1,906 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f7fafc;
+  color: #172033;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar {
+  height: 76px;
+  padding: 0 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: white;
+  border-bottom: 1px solid #e8edf3;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.logo-icon {
+  color: #087f8c;
+  font-size: 27px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 30px;
+  color: #5c6675;
+  font-size: 14px;
+}
+
+.nav-links a:hover {
+  color: #087f8c;
+}
+
+.login-button {
+  padding: 11px 19px;
+  border-radius: 8px;
+  background: #087f8c;
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero {
+  min-height: 680px;
+  padding: 80px 8%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(248, 253, 254, 0.96) 0%,
+      rgba(248, 253, 254, 0.88) 32%,
+      rgba(248, 253, 254, 0.55) 55%,
+      rgba(248, 253, 254, 0.12) 100%
+    );
+
+  backdrop-filter: blur(1.5px);
+
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 650px;
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 8px 14px;
+  margin-bottom: 20px;
+  border-radius: 30px;
+  background: #e1f5f6;
+  color: #087f8c;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.hero h1 {
+  font-size: 53px;
+  line-height: 1.1;
+  margin-bottom: 25px;
+  color: #14202e;
+}
+
+.hero h1 span {
+  color: #087f8c;
+}
+
+.hero p {
+  max-width: 570px;
+  color: #657181;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 32px;
+}
+
+.primary-button,
+.secondary-button {
+  padding: 14px 23px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+.primary-button {
+  background: #087f8c;
+  color: white;
+}
+
+.secondary-button {
+  background: white;
+  border: 1px solid #d6dfe7;
+  color: #273444;
+}
+
+.primary-button:hover,
+.login-button:hover {
+  background: #066b76;
+}
+
+/* =========================
+   RETINA VISUAL
+========================= */
+
+
+
+
+
+
+
+.retina-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 18px;
+  display: block;
+}
+
+
+
+
+/* =========================
+   SECTIONS
+========================= */
+
+.features,
+.how-it-works {
+  padding: 90px 8%;
+}
+
+.section-heading {
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto 50px;
+}
+
+/* ========================================
+   SECTION HEADING ANIMATIONS
+======================================== */
+
+.features-heading,
+.workflow-heading {
+  opacity: 0;
+  transform: translateY(45px) scale(0.96);
+}
+
+/* Core Features heading */
+
+.features-visible .features-heading {
+  animation: headingReveal 1.2s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    0.1s forwards;
+}
+
+/* Workflow heading */
+
+.workflow-visible .workflow-heading {
+  animation: headingReveal 1.2s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    0.1s forwards;
+}
+
+@keyframes headingReveal {
+  from {
+    opacity: 0;
+    transform: translateY(45px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.section-heading span {
+  font-size: 12px;
+  color: #087f8c;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.section-heading h2 {
+  margin-top: 10px;
+  font-size: 35px;
+}
+
+.section-heading p {
+  margin-top: 12px;
+  color: #687584;
+}
+
+.features-heading span,
+.workflow-heading span {
+  display: block;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.features-heading h2,
+.workflow-heading h2 {
+  opacity: 0;
+  transform: translateY(25px);
+}
+
+.features-heading p,
+.workflow-heading p {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+
+/* Core Features */
+
+.features-visible .features-heading span {
+  animation: textUp 0.7s ease-out 0.1s forwards;
+}
+
+.features-visible .features-heading h2 {
+  animation: textUp 0.9s ease-out 0.3s forwards;
+}
+
+.features-visible .features-heading p {
+  animation: textUp 0.8s ease-out 0.55s forwards;
+}
+
+
+/* Workflow */
+
+.workflow-visible .workflow-heading span {
+  animation: textUp 0.7s ease-out 0.1s forwards;
+}
+
+.workflow-visible .workflow-heading h2 {
+  animation: textUp 0.9s ease-out 0.3s forwards;
+}
+
+.workflow-visible .workflow-heading p {
+  animation: textUp 0.8s ease-out 0.55s forwards;
+}
+
+
+@keyframes textUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   FEATURES
+========================= */
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.feature-card {
+  opacity: 0;
+  transform-style: preserve-3d;
+}
+
+.features-visible .feature-card {
+  animation-duration: 1.6s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: forwards;
+}
+
+.features-visible .feature-card {
+  animation-duration: 1.6s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: forwards;
+}
+
+/* ========================================
+   FEATURE CARD ANIMATIONS
+======================================== */
+
+.feature-card {
+  opacity: 0;
+  transform-style: preserve-3d;
+  animation-duration: 1s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: forwards;
+}
+
+
+/* ----------------------------------------
+   CARD 1
+   Comes from LEFT
+---------------------------------------- */
+
+.features-visible .feature-card-1 {
+  animation-name: slideFromLeft;
+  animation-delay: 0.1s;
+}
+
+@keyframes slideFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-120px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+/* ----------------------------------------
+   CARD 2
+   FLIP FROM LEFT → RIGHT
+---------------------------------------- */
+
+.features-visible .feature-card-2 {
+  animation-name: flipFromLeft;
+  animation-delay: 0.8s;
+}
+
+@keyframes flipFromLeft {
+  from {
+    opacity: 0;
+    transform: perspective(1000px)
+               rotateY(-90deg)
+               translateX(-40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: perspective(1000px)
+               rotateY(0deg)
+               translateX(0);
+  }
+}
+
+
+/* ----------------------------------------
+   CARD 3
+   FLIP FROM RIGHT → LEFT
+---------------------------------------- */
+
+.features-visible .feature-card-3 {
+  animation-name: flipFromRight;
+  animation-delay: 1.5s;
+}
+
+@keyframes flipFromRight {
+  from {
+    opacity: 0;
+    transform: perspective(1000px)
+               rotateY(90deg)
+               translateX(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: perspective(1000px)
+               rotateY(0deg)
+               translateX(0);
+  }
+}
+
+
+/* ----------------------------------------
+   CARD 4
+   Comes from RIGHT
+---------------------------------------- */
+
+.features-visible .feature-card-4 {
+  animation-name: slideFromRight;
+  animation-delay: 2.1s;
+}
+
+@keyframes slideFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(120px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(20, 40, 50, 0.08);
+}
+
+.feature-icon {
+  font-size: 30px;
+  color: #087f8c;
+  margin-bottom: 20px;
+}
+
+.feature-card h3 {
+  margin-bottom: 12px;
+  font-size: 18px;
+}
+
+.feature-card p {
+  color: #6d7885;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+/* =========================
+   WORKFLOW
+========================= */
+
+.how-it-works {
+  background: white;
+}
+
+.workflow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 1150px;
+  margin: auto;
+}
+
+.workflow-step {
+  text-align: center;
+  width: 210px;
+}
+
+/* ========================================
+   WORKFLOW SEQUENTIAL ANIMATION
+======================================== */
+
+.workflow-step,
+.workflow-line {
+  opacity: 0;
+}
+
+/* 01 - arrives first */
+.workflow-step-1 {
+  animation: workflowAppear 1s ease-out 0.1s forwards;
+}
+
+/* line after 01 */
+.workflow-line-1 {
+  animation: lineAppear 0.6s ease-out 0.9s forwards;
+}
+
+/* 02 */
+.workflow-step-2 {
+  animation: workflowAppear 1s ease-out 1.2s forwards;
+}
+
+/* line after 02 */
+.workflow-line-2 {
+  animation: lineAppear 0.6s ease-out 2s forwards;
+}
+
+/* 03 */
+.workflow-step-3 {
+  animation: workflowAppear 1s ease-out 2.3s forwards;
+}
+
+/* line after 03 */
+.workflow-line-3 {
+  animation: lineAppear 0.6s ease-out 3.1s forwards;
+}
+
+/* 04 */
+.workflow-step-4 {
+  animation: workflowAppear 1s ease-out 3.4s forwards;
+}
+
+
+/* Step entrance */
+@keyframes workflowAppear {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* Connecting line entrance */
+@keyframes lineAppear {
+  from {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+.step-number {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #e1f5f6;
+  color: #087f8c;
+  font-weight: 700;
+}
+
+.workflow-step h3 {
+  margin-bottom: 8px;
+}
+
+.workflow-step p {
+  color: #718090;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.workflow-line {
+  width: 70px;
+  height: 1px;
+  background: #d7e2e7;
+}
+
+/* =========================
+   CTA
+========================= */
+
+.cta {
+  margin: 80px 8%;
+  padding: 45px 55px;
+  border-radius: 18px;
+  background: #087f8c;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+/* ========================================
+   CTA ANIMATION
+======================================== */
+
+.cta {
+  opacity: 0;
+  transform: translateY(70px);
+}
+
+.cta.cta-visible {
+  animation: ctaReveal 1.2s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    forwards;
+}
+
+.cta-content {
+  opacity: 0;
+  transform: translateX(-40px);
+}
+
+.cta.cta-visible .cta-content {
+  animation: ctaTextReveal 0.9s ease-out 0.3s forwards;
+}
+
+.cta-button {
+  opacity: 0;
+  transform: translateX(40px);
+}
+
+.cta.cta-visible .cta-button {
+  animation: ctaButtonReveal 0.9s ease-out 0.65s forwards;
+}
+
+
+@keyframes ctaReveal {
+  from {
+    opacity: 0;
+    transform: translateY(70px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+@keyframes ctaTextReveal {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+@keyframes ctaButtonReveal {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.cta h2 {
+  font-size: 29px;
+  margin-bottom: 8px;
+}
+
+.cta p {
+  opacity: 0.85;
+}
+
+.cta .primary-button {
+  background: white;
+  color: #087f8c;
+  white-space: nowrap;
+}
+
+/* =========================
+   PROFESSIONAL FOOTER
+========================= */
+
+.footer {
+  background: #101c2b;
+  color: white;
+  padding: 42px 8% 22px;
+}
+
+
+/* Main footer area */
+
+.footer-main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 60px;
+}
+
+
+/* Brand */
+
+.footer-brand {
+  max-width: 420px;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.footer-logo-icon {
+  color: #20a6b3;
+  font-size: 25px;
+}
+
+.footer-brand p {
+  margin-top: 10px;
+  color: #9eabb9;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+
+/* Purpose */
+
+.footer-purpose {
+  max-width: 340px;
+}
+
+.footer-label {
+  display: block;
+
+  color: #20a6b3;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+
+  margin-bottom: 9px;
+}
+
+.footer-purpose p {
+  color: #aeb9c5;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+
+/* Divider */
+
+.footer-divider {
+  height: 1px;
+  margin: 30px 0 18px;
+
+  background: rgba(255, 255, 255, 0.1);
+}
+
+
+/* Bottom */
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  color: #7f8d9c;
+  font-size: 12px;
+}
+
+
+/* Status */
+
+.footer-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #9eabb9;
+}
+
+.footer-status-dot {
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+  background: #20a6b3;
+
+  box-shadow: 0 0 8px rgba(32, 166, 179, 0.6);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+  .nav-links {
+    display: none;
+  }
+
+  .hero {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+  }
+
+  .feature-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .workflow {
+    flex-direction: column;
+    gap: 25px;
+  }
+
+  .workflow-line {
+    display: none;
+  }
+
+  .cta {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  footer {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 550px) {
+  .hero h1 {
+    font-size: 38px;
+  }
+
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-visual {
+    width: 100%;
+  }
+
+  .retina-card {
+    width: 300px;
+    height: 300px;
+  }
+
+  .retina-circle {
+    width: 210px;
+    height: 210px;
+  }
+
+  .footer {
+  padding: 35px 6% 20px;
+}
+
+.footer-main {
+  flex-direction: column;
+  gap: 25px;
+}
+
+.footer-purpose {
+  max-width: 100%;
+}
+
+.footer-bottom {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+}
