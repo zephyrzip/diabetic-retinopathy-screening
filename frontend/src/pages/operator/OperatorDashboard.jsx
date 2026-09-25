@@ -1,37 +1,26 @@
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../styles/operator.css";
+import { formatDate, gradeLabel, listScreenings } from "../../services/screenings";
 
 export default function OperatorDashboard() {
-  const recentScreenings = [
-    {
-      id: "P-001",
-      date: "25 Sep 2026",
-      time: "10:30 AM",
-      level: "No DR",
-      status: "Non-Referable",
-    },
-    {
-      id: "P-002",
-      date: "25 Sep 2026",
-      time: "11:10 AM",
-      level: "Moderate DR",
-      status: "Referable",
-    },
-    {
-      id: "P-003",
-      date: "25 Sep 2026",
-      time: "11:40 AM",
-      level: "Severe DR",
-      status: "Referable",
-    },
-    {
-      id: "P-004",
-      date: "25 Sep 2026",
-      time: "12:15 PM",
-      level: "No DR",
-      status: "Non-Referable",
-    },
-  ];
+  const [screenings, setScreenings] = useState([]);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const controller = new AbortController();
+    listScreenings(controller.signal).then((data) => setScreenings(data.screenings || [])).catch((requestError) => {
+      if (requestError.name !== "AbortError") setError(requestError.message);
+    });
+    return () => controller.abort();
+  }, []);
+
+  const totals = useMemo(() => ({
+    total: screenings.length,
+    referable: screenings.filter((screening) => screening.is_referable).length,
+    complete: screenings.filter((screening) => screening.status === "COMPLETED").length,
+    failed: screenings.filter((screening) => screening.status === "FAILED").length,
+  }), [screenings]);
 
   return (
     <div className="operator-layout">
@@ -66,7 +55,7 @@ export default function OperatorDashboard() {
           </Link>
 
           <Link
-            to="/operator/history"
+            to="/operator"
             className="operator-nav-item"
           >
             <span>▤</span>
@@ -74,7 +63,7 @@ export default function OperatorDashboard() {
           </Link>
 
           <Link
-            to="/operator/reports"
+            to="/operator"
             className="operator-nav-item"
           >
             <span>▧</span>
@@ -194,8 +183,8 @@ export default function OperatorDashboard() {
 
             <div>
               <span>Total Screenings</span>
-              <strong>24</strong>
-              <small>Today</small>
+              <strong>{totals.total}</strong>
+              <small>All recorded screenings</small>
             </div>
 
           </div>
@@ -209,7 +198,7 @@ export default function OperatorDashboard() {
 
             <div>
               <span>Referable Cases</span>
-              <strong>7</strong>
+              <strong>{totals.referable}</strong>
               <small>Needs review</small>
             </div>
 
@@ -224,8 +213,8 @@ export default function OperatorDashboard() {
 
             <div>
               <span>Good Quality</span>
-              <strong>21</strong>
-              <small>87.5% of images</small>
+              <strong>{totals.complete}</strong>
+              <small>AI processing completed</small>
             </div>
 
           </div>
@@ -239,8 +228,8 @@ export default function OperatorDashboard() {
 
             <div>
               <span>Recapture Required</span>
-              <strong>3</strong>
-              <small>Image quality</small>
+              <strong>{totals.failed}</strong>
+              <small>Needs follow-up</small>
             </div>
 
           </div>
@@ -266,9 +255,7 @@ export default function OperatorDashboard() {
               </h2>
             </div>
 
-            <Link to="/operator/history">
-              View All →
-            </Link>
+            <Link to="/operator/new-screening">Start new →</Link>
 
           </div>
 
@@ -292,27 +279,27 @@ export default function OperatorDashboard() {
 
               <tbody>
 
-                {recentScreenings.map((screening) => (
+                {screenings.slice(0, 10).map((screening) => (
 
-                  <tr key={screening.id}>
+                  <tr key={screening.screening_id}>
 
                     <td>
                       <strong>
-                        {screening.id}
+                        {screening.patient_id}
                       </strong>
                     </td>
 
                     <td>
-                      {screening.date}
+                      {formatDate(screening.created_at).split(',')[0]}
                     </td>
 
                     <td>
-                      {screening.time}
+                      {formatDate(screening.created_at).split(',')[1]?.trim() || '—'}
                     </td>
 
                     <td>
                       <span className="dr-level">
-                        {screening.level}
+                        {screening.status === 'COMPLETED' ? gradeLabel(screening.ai_grade) : screening.status}
                       </span>
                     </td>
 
@@ -320,30 +307,26 @@ export default function OperatorDashboard() {
 
                       <span
                         className={
-                          screening.status === "Referable"
+                          screening.is_referable
                             ? "status-badge referable-status"
                             : "status-badge safe-status"
                         }
                       >
-                        {screening.status}
+                        {screening.is_referable == null ? screening.status : screening.is_referable ? 'Referable' : 'Non-referable'}
                       </span>
 
                     </td>
 
                     <td>
 
-                      <button
-                        className="view-button"
-                        type="button"
-                      >
-                        View
-                      </button>
+                      <Link className="view-button" to={`/operator/result/${screening.screening_id}`}>View</Link>
 
                     </td>
 
                   </tr>
 
                 ))}
+                {!screenings.length && <tr><td colSpan="6">{error || 'No screenings have been created yet.'}</td></tr>}
 
               </tbody>
 
@@ -387,7 +370,7 @@ export default function OperatorDashboard() {
 
 
             <Link
-              to="/operator/history"
+              to="/operator"
               className="quick-action-card"
             >
               <span>▤</span>
@@ -407,7 +390,7 @@ export default function OperatorDashboard() {
 
 
             <Link
-              to="/operator/reports"
+              to="/operator"
               className="quick-action-card"
             >
               <span>▧</span>

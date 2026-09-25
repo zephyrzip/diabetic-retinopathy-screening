@@ -50,7 +50,7 @@ app.use(cors({
   origin(origin, callback) {
     callback(null, !origin || allowedOrigins.has(origin));
   },
-  methods: ['GET', 'POST', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PATCH', 'OPTIONS'],
 }));
 app.use(express.json({ limit: '1mb' }));
 
@@ -105,12 +105,19 @@ async function initializeDatabase() {
       doctor_notes TEXT,
       severity_level VARCHAR(30) NOT NULL,
       doctor_id VARCHAR(50) NOT NULL,
+      review_status VARCHAR(20) NOT NULL DEFAULT 'PENDING_REVIEW',
+      reviewed_at TIMESTAMP WITH TIME ZONE,
       created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
     );
   `);
   await reportsPool.query(`
     CREATE INDEX IF NOT EXISTS doctor_reports_scan_created_idx
       ON doctor_reports (scan_id, created_at DESC);
+  `);
+  await reportsPool.query(`
+    ALTER TABLE doctor_reports
+      ADD COLUMN IF NOT EXISTS review_status VARCHAR(20) NOT NULL DEFAULT 'PENDING_REVIEW',
+      ADD COLUMN IF NOT EXISTS reviewed_at TIMESTAMP WITH TIME ZONE;
   `);
 }
 
@@ -128,8 +135,13 @@ function screeningPayload(scan, report) {
     processing_error: scan.processing_error,
     ai_grade: report?.ai_predictions?.grade ?? null,
     confidence: report?.ai_predictions?.confidence ?? null,
+    clinical_decision: report?.ai_predictions?.clinical_decision ?? null,
     is_referable: report ? report.severity_level === 'REFER' : null,
     result_image_url: report?.report_image_url ?? null,
+    doctor_notes: report?.doctor_notes ?? null,
+    doctor_id: report?.doctor_id ?? null,
+    review_status: report?.review_status ?? null,
+    reviewed_at: report?.reviewed_at ?? null,
   };
 }
 
@@ -356,6 +368,64 @@ app.get('/api/screenings/:id', async (req, res, next) => {
       [id],
     );
     res.json(screeningPayload(scan, reports[0]));
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.patch('/api/screenings/:id/review', async (req, res, next) => {
+  const id = validScreeningId(req.params.id);
+  if (!id) {
+    res.status(400).json({ error: 'Screening ID must be a positive integer.' });
+    return;
+  }
+
+  const clinicalDecision = typeof req.body.clinical_decision === 'string'
+    ? req.body.clinical_decision.trim()
+    : '';
+  const doctorNotes = typeof req.body.doctor_notes === 'string'
+    ? req.body.doctor_notes.trim()
+    : '';
+  const doctorId = typeof req.body.doctor_id === 'string'
+    ? req.body.doctor_id.trim()
+    : '';
+  if (!clinicalDecision || !doctorNotes || !doctorId) {
+    res.status(400).json({ error: 'Clinical decision, notes, and doctor ID are required.' });
+    return;
+  }
+  if (clinicalDecision.length > 100 || doctorNotes.length > 5000 || doctorId.length > 50) {
+    res.status(400).json({ error: 'One or more review fields are too long.' });
+    return;
+  }
+
+  try {
+    const { rows } = await reportsPool.query(
+      `UPDATE doctor_reports
+       SET doctor_notes = $1,
+           doctor_id = $2,
+           review_status = 'SIGNED',
+           reviewed_at = CURRENT_TIMESTAMP,
+           ai_predictions = ai_predictions || $3::jsonb
+       WHERE report_id = (
+         SELECT report_id FROM doctor_reports
+         WHERE scan_id = $4
+         ORDER BY created_at DESC
+         LIMIT 1
+       )
+       RETURNING *`,
+      [doctorNotes, doctorId, JSON.stringify({ clinical_decision: clinicalDecision }), id],
+    );
+    if (!rows[0]) {
+      res.status(409).json({ error: 'This screening does not have a completed AI report to review yet.' });
+      return;
+    }
+
+    const { rows: scanRows } = await scansPool.query('SELECT * FROM patient_scans WHERE scan_id = $1', [id]);
+    if (!scanRows[0]) {
+      res.status(404).json({ error: 'Screening record not found.' });
+      return;
+    }
+    res.json(screeningPayload(scanRows[0], rows[0]));
   } catch (error) {
     next(error);
   }

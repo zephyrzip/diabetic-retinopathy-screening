@@ -1,40 +1,21 @@
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../styles/doctor.css";
 import "../../styles/operator.css";
+import { formatDate, gradeLabel, listScreenings } from "../../services/screenings";
 
 export default function ReviewQueuePage() {
-  const queueCases = [
-    {
-      id: "P-002",
-      center: "St. Jude Clinic #4",
-      date: "26 Sep 2026",
-      aiSeverity: "Moderate DR (Stage 2)",
-      confidence: "92.4%",
-      referable: true,
-      priority: "Urgent",
-      findings: "Multiple microaneurysms, blot hemorrhages in superior quadrant",
-    },
-    {
-      id: "P-003",
-      center: "Apex Eye Foundation",
-      date: "26 Sep 2026",
-      aiSeverity: "Severe DR (Stage 3)",
-      confidence: "97.1%",
-      referable: true,
-      priority: "Urgent",
-      findings: "Venous beading, prominent cotton-wool spots, intraretinal microvascular abnormalities",
-    },
-    {
-      id: "P-005",
-      center: "Metro Rural Screening Unit",
-      date: "26 Sep 2026",
-      aiSeverity: "Proliferative DR (Stage 4)",
-      confidence: "98.8%",
-      referable: true,
-      priority: "Critical",
-      findings: "Neovascularization of the disc (NVD), preretinal fibrous proliferation",
-    },
-  ];
+  const [queueCases, setQueueCases] = useState([]);
+  const [error, setError] = useState("");
+  useEffect(() => {
+    const controller = new AbortController();
+    listScreenings(controller.signal).then((data) => {
+      setQueueCases((data.screenings || []).filter((screening) => screening.status === 'COMPLETED' && screening.is_referable && screening.review_status !== 'SIGNED'));
+    }).catch((requestError) => {
+      if (requestError.name !== 'AbortError') setError(requestError.message);
+    });
+    return () => controller.abort();
+  }, []);
 
   return (
     <div className="doctor-layout">
@@ -55,10 +36,10 @@ export default function ReviewQueuePage() {
           <Link to="/doctor/reviews" className="doctor-nav-item active">
             <span>📋</span>
             <span>Review Queue</span>
-            <span className="nav-count-badge">3</span>
+            <span className="nav-count-badge">{queueCases.length}</span>
           </Link>
 
-          <Link to="/doctor/review/P-002" className="doctor-nav-item">
+          <Link to="/doctor/reviews" className="doctor-nav-item">
             <span>👁️</span>
             <span>Case Review</span>
           </Link>
@@ -121,37 +102,37 @@ export default function ReviewQueuePage() {
               </thead>
               <tbody>
                 {queueCases.map((c) => (
-                  <tr key={c.id}>
+                  <tr key={c.screening_id}>
                     <td>
-                      <strong>{c.id}</strong>
+                      <strong>{c.patient_id}</strong>
                     </td>
-                    <td>{c.center}</td>
-                    <td>{c.date}</td>
+                    <td>{c.technician_id || 'Screening center'}</td>
+                    <td>{formatDate(c.created_at)}</td>
                     <td>
-                      <span className="dr-level">{c.aiSeverity}</span>
+                      <span className="dr-level">{gradeLabel(c.ai_grade)}</span>
                     </td>
                     <td>
-                      <strong>{c.confidence}</strong>
+                      <strong>{c.confidence == null ? '—' : `${Math.round(c.confidence * 100)}%`}</strong>
                     </td>
                     <td>
                       <span style={{ fontSize: "11px", color: "#64748b" }}>
-                        {c.findings}
+                        AI report available for clinical review
                       </span>
                     </td>
                     <td>
                       <span
                         className={`priority-tag ${
-                          c.priority === "Critical"
+                          c.ai_grade >= 4
                             ? "priority-urgent"
                             : "priority-high"
                         }`}
                       >
-                        {c.priority}
+                        {c.ai_grade >= 4 ? 'Critical' : 'Urgent'}
                       </span>
                     </td>
                     <td>
                       <Link
-                        to={`/doctor/review/${c.id}`}
+                        to={`/doctor/review/${c.screening_id}`}
                         className="review-action-btn"
                       >
                         Evaluate & Certify →
@@ -159,6 +140,7 @@ export default function ReviewQueuePage() {
                     </td>
                   </tr>
                 ))}
+                {!queueCases.length && <tr><td colSpan="8">{error || 'No referable screenings are waiting for review.'}</td></tr>}
               </tbody>
             </table>
           </div>

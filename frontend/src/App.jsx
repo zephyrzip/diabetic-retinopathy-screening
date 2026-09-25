@@ -48,7 +48,7 @@ function App() {
       <Route path="/operator" element={<OperatorDashboard />} />
       <Route path="/operator/new-screening" element={<NewScreening />} />
       <Route path="/operator/screening" element={<Screening />} />
-      <Route path="/operator/result" element={<ScreeningResult />} />
+      <Route path="/operator/result/:screeningId" element={<ScreeningResult />} />
       <Route path="/operator/explainability" element={<Explainability />} />
 
       {/* Ophthalmologist / Clinical */}

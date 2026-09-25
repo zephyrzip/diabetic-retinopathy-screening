@@ -1,50 +1,20 @@
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../styles/doctor.css";
 import "../../styles/operator.css";
+import { formatDate, gradeLabel, listScreenings } from '../../services/screenings';
 
 export default function DoctorDashboard() {
-  const pendingReviews = [
-    {
-      id: "P-002",
-      date: "26 Sep 2026",
-      time: "11:10 AM",
-      level: "Moderate DR",
-      confidence: "92.4%",
-      status: "Referable",
-      priority: "Urgent",
-      lesions: "Microaneurysms, Hemorrhages",
-    },
-    {
-      id: "P-003",
-      date: "26 Sep 2026",
-      time: "11:40 AM",
-      level: "Severe DR",
-      confidence: "97.1%",
-      status: "Referable",
-      priority: "Urgent",
-      lesions: "Venous beading, Cotton wool spots",
-    },
-    {
-      id: "P-005",
-      date: "26 Sep 2026",
-      time: "01:25 PM",
-      level: "Proliferative DR",
-      confidence: "98.8%",
-      status: "Referable",
-      priority: "Critical",
-      lesions: "Neovascularization, Vitreous haze",
-    },
-    {
-      id: "P-001",
-      date: "26 Sep 2026",
-      time: "10:30 AM",
-      level: "No DR",
-      confidence: "99.2%",
-      status: "Non-Referable",
-      priority: "Normal",
-      lesions: "Clear fundus, no visible lesions",
-    },
-  ];
+  const [screenings, setScreenings] = useState([]);
+  useEffect(() => {
+    const controller = new AbortController();
+    listScreenings(controller.signal).then((data) => setScreenings(data.screenings || [])).catch(() => {});
+    return () => controller.abort();
+  }, []);
+  const pendingReviews = useMemo(() => screenings.filter((screening) => screening.status === 'COMPLETED' && screening.is_referable && screening.review_status !== 'SIGNED').map((screening) => {
+    const [date = '—', time = ''] = formatDate(screening.created_at).split(',');
+    return { id: screening.screening_id, date, time: time.trim(), level: gradeLabel(screening.ai_grade), confidence: screening.confidence == null ? '—' : `${Math.round(screening.confidence * 100)}%`, priority: screening.ai_grade >= 4 ? 'Critical' : 'Urgent', lesions: 'AI report ready for clinical review' };
+  }), [screenings]);
 
   return (
     <div className="doctor-layout">
@@ -70,7 +40,7 @@ export default function DoctorDashboard() {
             <span className="nav-count-badge">3</span>
           </Link>
 
-          <Link to="/doctor/review/P-002" className="doctor-nav-item">
+          <Link to="/doctor/reviews" className="doctor-nav-item">
             <span>👁️</span>
             <span>Case Review</span>
           </Link>
@@ -131,7 +101,7 @@ export default function DoctorDashboard() {
           </div>
 
           <Link to="/doctor/reviews" className="doctor-primary-button">
-            Open Review Queue (3) →
+            Open Review Queue ({pendingReviews.length}) →
           </Link>
         </section>
 
@@ -141,7 +111,7 @@ export default function DoctorDashboard() {
             <div className="stat-icon referable">!</div>
             <div>
               <span>Pending Reviews</span>
-              <strong>3</strong>
+              <strong>{pendingReviews.length}</strong>
               <small>Requires clinical sign-off</small>
             </div>
           </div>
@@ -152,7 +122,7 @@ export default function DoctorDashboard() {
             </div>
             <div>
               <span>Urgent / PDR</span>
-              <strong>2</strong>
+              <strong>{pendingReviews.filter((patient) => patient.priority === 'Critical').length}</strong>
               <small>Critical referral cases</small>
             </div>
           </div>
@@ -161,7 +131,7 @@ export default function DoctorDashboard() {
             <div className="stat-icon quality">✓</div>
             <div>
               <span>Validated Today</span>
-              <strong>14</strong>
+              <strong>{screenings.filter((screening) => screening.review_status === 'SIGNED').length}</strong>
               <small>Reports certified</small>
             </div>
           </div>
@@ -172,8 +142,8 @@ export default function DoctorDashboard() {
             </div>
             <div>
               <span>AI Concordance</span>
-              <strong>96.8%</strong>
-              <small>Diagnostic agreement</small>
+              <strong>—</strong>
+              <small>Available after review</small>
             </div>
           </div>
         </section>
@@ -274,7 +244,7 @@ export default function DoctorDashboard() {
               <b>→</b>
             </Link>
 
-            <Link to="/doctor/review/P-002" className="quick-action-card">
+            <Link to="/doctor/reviews" className="quick-action-card">
               <span>📑</span>
               <div>
                 <strong>Digital Clinical Report</strong>
