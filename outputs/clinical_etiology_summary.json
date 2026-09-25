@@ -1,0 +1,187 @@
+[
+  {
+    "predicted_grade": 1,
+    "grade_label": "1 - Mild Non-Proliferative DR",
+    "confidence_percent": 20.82,
+    "referable_dr": false,
+    "biomarker_analysis": {
+      "Microaneurysms": {
+        "detected": true,
+        "probability": 0.577,
+        "severity": "Moderate"
+      },
+      "Hemorrhages": {
+        "detected": true,
+        "probability": 0.511,
+        "severity": "Moderate"
+      },
+      "Hard Exudates": {
+        "detected": false,
+        "probability": 0.488,
+        "severity": "Negligible"
+      },
+      "Cotton Wool Spots": {
+        "detected": false,
+        "probability": 0.477,
+        "severity": "Negligible"
+      },
+      "Neovascularization": {
+        "detected": false,
+        "probability": 0.457,
+        "severity": "Negligible"
+      }
+    },
+    "pathology_etiology": "Early microvascular injury triggered by chronic hyperglycemia. Hyperglycemia-induced apoptosis of capillary pericytes weakens vessel walls, forming focal outpouchings (Microaneurysms). These are the earliest visible morphological hallmarks of diabetic retinopathy.",
+    "clinical_recommendation": "Glycemic and blood pressure control. Re-evaluation in 6-12 months.",
+    "sample_id": "demo_grade_0_00",
+    "ground_truth_grade": 0
+  },
+  {
+    "predicted_grade": 1,
+    "grade_label": "1 - Mild Non-Proliferative DR",
+    "confidence_percent": 20.79,
+    "referable_dr": false,
+    "biomarker_analysis": {
+      "Microaneurysms": {
+        "detected": true,
+        "probability": 0.573,
+        "severity": "Moderate"
+      },
+      "Hemorrhages": {
+        "detected": true,
+        "probability": 0.514,
+        "severity": "Moderate"
+      },
+      "Hard Exudates": {
+        "detected": false,
+        "probability": 0.492,
+        "severity": "Negligible"
+      },
+      "Cotton Wool Spots": {
+        "detected": false,
+        "probability": 0.478,
+        "severity": "Negligible"
+      },
+      "Neovascularization": {
+        "detected": false,
+        "probability": 0.454,
+        "severity": "Negligible"
+      }
+    },
+    "pathology_etiology": "Early microvascular injury triggered by chronic hyperglycemia. Hyperglycemia-induced apoptosis of capillary pericytes weakens vessel walls, forming focal outpouchings (Microaneurysms). These are the earliest visible morphological hallmarks of diabetic retinopathy.",
+    "clinical_recommendation": "Glycemic and blood pressure control. Re-evaluation in 6-12 months.",
+    "sample_id": "demo_grade_1_00",
+    "ground_truth_grade": 1
+  },
+  {
+    "predicted_grade": 4,
+    "grade_label": "4 - Proliferative Diabetic Retinopathy (PDR)",
+    "confidence_percent": 22.55,
+    "referable_dr": true,
+    "biomarker_analysis": {
+      "Microaneurysms": {
+        "detected": true,
+        "probability": 0.597,
+        "severity": "Moderate"
+      },
+      "Hemorrhages": {
+        "detected": true,
+        "probability": 0.539,
+        "severity": "Moderate"
+      },
+      "Hard Exudates": {
+        "detected": true,
+        "probability": 0.507,
+        "severity": "Moderate"
+      },
+      "Cotton Wool Spots": {
+        "detected": false,
+        "probability": 0.497,
+        "severity": "Negligible"
+      },
+      "Neovascularization": {
+        "detected": false,
+        "probability": 0.446,
+        "severity": "Negligible"
+      }
+    },
+    "pathology_etiology": "Proliferative Diabetic Retinopathy (PDR). Severe, sustained retinal hypoxia has triggered massive upregulation and secretion of Vascular Endothelial Growth Factor (VEGF). This induces active Neovascularization\u2014the formation of highly fragile, aberrant new blood vessels on the optic disc (NVD) or retina (NVE). These vessels are prone to catastrophic vitreous hemorrhage and fibrovascular contraction, which can lead to tractional retinal detachment and severe, irreversible vision loss.",
+    "clinical_recommendation": "IMMEDIATE SURGICAL / RETINAL REFERRAL. Urgent intervention required: Anti-VEGF intravitreal injections, Panretinal Photocoagulation (PRP), or vitrectomy to prevent permanent blindness.",
+    "sample_id": "demo_grade_2_00",
+    "ground_truth_grade": 2
+  },
+  {
+    "predicted_grade": 4,
+    "grade_label": "4 - Proliferative Diabetic Retinopathy (PDR)",
+    "confidence_percent": 23.96,
+    "referable_dr": true,
+    "biomarker_analysis": {
+      "Microaneurysms": {
+        "detected": true,
+        "probability": 0.609,
+        "severity": "Moderate"
+      },
+      "Hemorrhages": {
+        "detected": true,
+        "probability": 0.554,
+        "severity": "Moderate"
+      },
+      "Hard Exudates": {
+        "detected": true,
+        "probability": 0.525,
+        "severity": "Moderate"
+      },
+      "Cotton Wool Spots": {
+        "detected": false,
+        "probability": 0.497,
+        "severity": "Negligible"
+      },
+      "Neovascularization": {
+        "detected": false,
+        "probability": 0.448,
+        "severity": "Negligible"
+      }
+    },
+    "pathology_etiology": "Proliferative Diabetic Retinopathy (PDR). Severe, sustained retinal hypoxia has triggered massive upregulation and secretion of Vascular Endothelial Growth Factor (VEGF). This induces active Neovascularization\u2014the formation of highly fragile, aberrant new blood vessels on the optic disc (NVD) or retina (NVE). These vessels are prone to catastrophic vitreous hemorrhage and fibrovascular contraction, which can lead to tractional retinal detachment and severe, irreversible vision loss.",
+    "clinical_recommendation": "IMMEDIATE SURGICAL / RETINAL REFERRAL. Urgent intervention required: Anti-VEGF intravitreal injections, Panretinal Photocoagulation (PRP), or vitrectomy to prevent permanent blindness.",
+    "sample_id": "demo_grade_3_00",
+    "ground_truth_grade": 3
+  },
+  {
+    "predicted_grade": 4,
+    "grade_label": "4 - Proliferative Diabetic Retinopathy (PDR)",
+    "confidence_percent": 24.75,
+    "referable_dr": true,
+    "biomarker_analysis": {
+      "Microaneurysms": {
+        "detected": true,
+        "probability": 0.608,
+        "severity": "Moderate"
+      },
+      "Hemorrhages": {
+        "detected": true,
+        "probability": 0.545,
+        "severity": "Moderate"
+      },
+      "Hard Exudates": {
+        "detected": true,
+        "probability": 0.512,
+        "severity": "Moderate"
+      },
+      "Cotton Wool Spots": {
+        "detected": true,
+        "probability": 0.503,
+        "severity": "Moderate"
+      },
+      "Neovascularization": {
+        "detected": false,
+        "probability": 0.443,
+        "severity": "Negligible"
+      }
+    },
+    "pathology_etiology": "Proliferative Diabetic Retinopathy (PDR). Severe, sustained retinal hypoxia has triggered massive upregulation and secretion of Vascular Endothelial Growth Factor (VEGF). This induces active Neovascularization\u2014the formation of highly fragile, aberrant new blood vessels on the optic disc (NVD) or retina (NVE). These vessels are prone to catastrophic vitreous hemorrhage and fibrovascular contraction, which can lead to tractional retinal detachment and severe, irreversible vision loss.",
+    "clinical_recommendation": "IMMEDIATE SURGICAL / RETINAL REFERRAL. Urgent intervention required: Anti-VEGF intravitreal injections, Panretinal Photocoagulation (PRP), or vitrectomy to prevent permanent blindness.",
+    "sample_id": "demo_grade_4_00",
+    "ground_truth_grade": 4
+  }
+]

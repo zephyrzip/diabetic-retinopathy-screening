@@ -1,0 +1,173 @@
+[
+  {
+    "image_id": "IDRiD_Demo_01_Normal",
+    "cohort": "IDRiD (Indian Diabetic Retinopathy Cohort - 50\u00b0 FOV)",
+    "primary_diagnosis": {
+      "dr_grade": 0,
+      "dr_stage": "0 - No Apparent DR",
+      "dr_confidence": 0.7051959037780762,
+      "is_referable_dr": false,
+      "dme_risk": 0,
+      "dme_stage": "0 - No Apparent DME (No hard exudates near fovea)",
+      "dme_confidence": 0.3360564708709717,
+      "is_high_risk_dme": false
+    },
+    "biomarker_findings": [],
+    "pathological_etiology": {
+      "dr_pathogenesis": "Normal retinal vasculature without microvascular lesions or capillary dropout.",
+      "dme_pathogenesis": "Intact inner blood-retinal barrier at the foveal avascular zone; no significant macular lipid leakage."
+    },
+    "clinical_decision_support": {
+      "urgency": "NORMAL (Annual Screen)",
+      "action_plan": "Annual routine diabetic retinopathy screening."
+    }
+  },
+  {
+    "image_id": "IDRiD_Demo_02_MildNPDR",
+    "cohort": "IDRiD (Indian Diabetic Retinopathy Cohort - 50\u00b0 FOV)",
+    "primary_diagnosis": {
+      "dr_grade": 2,
+      "dr_stage": "2 - Moderate Non-Proliferative DR",
+      "dr_confidence": 0.41139891743659973,
+      "is_referable_dr": true,
+      "dme_risk": 0,
+      "dme_stage": "0 - No Apparent DME (No hard exudates near fovea)",
+      "dme_confidence": 0.34007537364959717,
+      "is_high_risk_dme": false
+    },
+    "biomarker_findings": [
+      {
+        "biomarker": "Microaneurysms",
+        "confidence": 0.9831503033638
+      },
+      {
+        "biomarker": "Hemorrhages",
+        "confidence": 0.6959565281867981
+      },
+      {
+        "biomarker": "Hard Exudates",
+        "confidence": 0.6907790303230286
+      }
+    ],
+    "pathological_etiology": {
+      "dr_pathogenesis": "Capillary breakdown with intraretinal hemorrhages and lipid exudation. Significant microvascular leakage.",
+      "dme_pathogenesis": "Intact inner blood-retinal barrier at the foveal avascular zone; no significant macular lipid leakage."
+    },
+    "clinical_decision_support": {
+      "urgency": "ROUTINE (Within 3-6 months)",
+      "action_plan": "Strict glycemic and blood pressure optimization (HbA1c target < 7.0%). Repeat dilated fundus exam in 6 months."
+    }
+  },
+  {
+    "image_id": "IDRiD_Demo_03_ModNPDR_MildDME",
+    "cohort": "IDRiD (Indian Diabetic Retinopathy Cohort - 50\u00b0 FOV)",
+    "primary_diagnosis": {
+      "dr_grade": 3,
+      "dr_stage": "3 - Severe Non-Proliferative DR",
+      "dr_confidence": 0.4934266209602356,
+      "is_referable_dr": true,
+      "dme_risk": 1,
+      "dme_stage": "1 - Mild / Moderate DME (Hard exudates present within 1 disc diameter of fovea)",
+      "dme_confidence": 0.34050214290618896,
+      "is_high_risk_dme": true
+    },
+    "biomarker_findings": [
+      {
+        "biomarker": "Microaneurysms",
+        "confidence": 0.9909192323684692
+      },
+      {
+        "biomarker": "Hemorrhages",
+        "confidence": 0.9506032466888428
+      },
+      {
+        "biomarker": "Hard Exudates",
+        "confidence": 0.9503206014633179
+      }
+    ],
+    "pathological_etiology": {
+      "dr_pathogenesis": "Extensive capillary non-perfusion causing nerve fiber layer ischemia (cotton wool spots) and venous beading.",
+      "dme_pathogenesis": "Perifoveal capillary hyperpermeability depositing hard exudates within 1 disc diameter of the foveal center."
+    },
+    "clinical_decision_support": {
+      "urgency": "PRIORITY (Within 4-6 weeks)",
+      "action_plan": "Ophthalmology referral for Optical Coherence Tomography (OCT) macular thickness evaluation and close surveillance."
+    }
+  },
+  {
+    "image_id": "IDRiD_Demo_04_SevereNPDR_DME",
+    "cohort": "IDRiD (Indian Diabetic Retinopathy Cohort - 50\u00b0 FOV)",
+    "primary_diagnosis": {
+      "dr_grade": 3,
+      "dr_stage": "3 - Severe Non-Proliferative DR",
+      "dr_confidence": 0.5335259437561035,
+      "is_referable_dr": true,
+      "dme_risk": 2,
+      "dme_stage": "2 - Severe DME / Clinically Significant (Exudates/thickening involving center of fovea)",
+      "dme_confidence": 0.3433382213115692,
+      "is_high_risk_dme": true
+    },
+    "biomarker_findings": [
+      {
+        "biomarker": "Microaneurysms",
+        "confidence": 0.9879934787750244
+      },
+      {
+        "biomarker": "Hemorrhages",
+        "confidence": 0.9453990459442139
+      },
+      {
+        "biomarker": "Hard Exudates",
+        "confidence": 0.9455575346946716
+      }
+    ],
+    "pathological_etiology": {
+      "dr_pathogenesis": "Extensive capillary non-perfusion causing nerve fiber layer ischemia (cotton wool spots) and venous beading.",
+      "dme_pathogenesis": "Clinically Significant Macular Edema (CSME): direct foveal lipid deposition or central thickening threatening central visual acuity."
+    },
+    "clinical_decision_support": {
+      "urgency": "URGENT (Within 1-2 weeks)",
+      "action_plan": "Immediate vitreoretinal specialist referral. Candidate for Anti-VEGF intravitreal injections (Aflibercept/Ranibizumab) and/or Panretinal Photocoagulation (PRP)."
+    }
+  },
+  {
+    "image_id": "IDRiD_Demo_05_PDR_CSME",
+    "cohort": "IDRiD (Indian Diabetic Retinopathy Cohort - 50\u00b0 FOV)",
+    "primary_diagnosis": {
+      "dr_grade": 3,
+      "dr_stage": "3 - Severe Non-Proliferative DR",
+      "dr_confidence": 0.642399787902832,
+      "is_referable_dr": true,
+      "dme_risk": 2,
+      "dme_stage": "2 - Severe DME / Clinically Significant (Exudates/thickening involving center of fovea)",
+      "dme_confidence": 0.3492891490459442,
+      "is_high_risk_dme": true
+    },
+    "biomarker_findings": [
+      {
+        "biomarker": "Microaneurysms",
+        "confidence": 0.9925151467323303
+      },
+      {
+        "biomarker": "Hemorrhages",
+        "confidence": 0.9699845910072327
+      },
+      {
+        "biomarker": "Hard Exudates",
+        "confidence": 0.9684990644454956
+      },
+      {
+        "biomarker": "Cotton Wool Spots",
+        "confidence": 0.6893624663352966
+      }
+    ],
+    "pathological_etiology": {
+      "dr_pathogenesis": "Extensive capillary non-perfusion causing nerve fiber layer ischemia (cotton wool spots) and venous beading.",
+      "dme_pathogenesis": "Clinically Significant Macular Edema (CSME): direct foveal lipid deposition or central thickening threatening central visual acuity."
+    },
+    "clinical_decision_support": {
+      "urgency": "URGENT (Within 1-2 weeks)",
+      "action_plan": "Immediate vitreoretinal specialist referral. Candidate for Anti-VEGF intravitreal injections (Aflibercept/Ranibizumab) and/or Panretinal Photocoagulation (PRP)."
+    }
+  }
+]

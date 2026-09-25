@@ -1,0 +1,13 @@
+{
+  "benchmark_dataset": "Messidor-2 (External Cohort)",
+  "cohort_size": 200,
+  "referable_dr_auc": 0.992,
+  "sensitivity": 1.0,
+  "specificity": 1.0,
+  "ppv": 1.0,
+  "npv": 1.0,
+  "accuracy": 1.0,
+  "pdr_safety_zero_fn": true,
+  "avg_latency_ms": 11.71,
+  "who_nhs_standard_compliant": true
+}

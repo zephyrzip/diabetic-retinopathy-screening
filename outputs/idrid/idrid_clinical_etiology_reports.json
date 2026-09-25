@@ -1,0 +1,140 @@
+[
+  {
+    "image_id": "IDRiD_033_R8",
+    "cohort": "IDRiD (Indian Retinal Cohort)",
+    "dr_grade": 2,
+    "dr_stage": "2 - Moderate NPDR",
+    "dr_confidence": 1.0,
+    "dme_risk": 2,
+    "dme_stage": "2 - Severe DME (CSME)",
+    "dme_confidence": 1.0,
+    "identified_lesions": [
+      "Microaneurysms",
+      "Hemorrhages",
+      "Hard Exudates"
+    ],
+    "etiology": {
+      "dr_mechanism": "Significant microvascular permeability with flame/blot hemorrhages and lipid exudation.",
+      "dme_mechanism": "Clinically Significant Macular Edema (CSME): exudates/edema involving central fovea."
+    },
+    "recommendation": {
+      "urgency": "URGENT (1-2 Weeks)",
+      "clinical_plan": "Intravitreal Anti-VEGF therapy and/or Panretinal Photocoagulation (PRP)."
+    }
+  },
+  {
+    "image_id": "IDRiD_040_L6",
+    "cohort": "IDRiD (Indian Retinal Cohort)",
+    "dr_grade": 4,
+    "dr_stage": "4 - Proliferative DR (PDR)",
+    "dr_confidence": 0.9967,
+    "dme_risk": 1,
+    "dme_stage": "1 - Mild/Moderate DME",
+    "dme_confidence": 0.9978,
+    "identified_lesions": [
+      "Microaneurysms",
+      "Hemorrhages",
+      "Hard Exudates",
+      "Cotton Wool Spots",
+      "Neovascularization"
+    ],
+    "etiology": {
+      "dr_mechanism": "Retinal ischemia driving massive VEGF upregulation with fragile neovascular tuft formation.",
+      "dme_mechanism": "Hard exudates present within 1 disc diameter of foveal center. Macular monitoring required."
+    },
+    "recommendation": {
+      "urgency": "URGENT (1-2 Weeks)",
+      "clinical_plan": "Intravitreal Anti-VEGF therapy and/or Panretinal Photocoagulation (PRP)."
+    }
+  },
+  {
+    "image_id": "IDRiD_037_L14",
+    "cohort": "IDRiD (Indian Retinal Cohort)",
+    "dr_grade": 0,
+    "dr_stage": "0 - No Apparent DR",
+    "dr_confidence": 0.9927,
+    "dme_risk": 0,
+    "dme_stage": "0 - No DME",
+    "dme_confidence": 0.9902,
+    "identified_lesions": [],
+    "etiology": {
+      "dr_mechanism": "Normal retinal vasculature without microvascular lesions or capillary loss.",
+      "dme_mechanism": "No significant perifoveal lipid exudates. Central visual acuity preserved."
+    },
+    "recommendation": {
+      "urgency": "ANNUAL SCREENING",
+      "clinical_plan": "Annual regular diabetic retinopathy evaluation."
+    }
+  },
+  {
+    "image_id": "IDRiD_016_L14",
+    "cohort": "IDRiD (Indian Retinal Cohort)",
+    "dr_grade": 3,
+    "dr_stage": "3 - Severe NPDR",
+    "dr_confidence": 0.9921,
+    "dme_risk": 2,
+    "dme_stage": "2 - Severe DME (CSME)",
+    "dme_confidence": 0.9959,
+    "identified_lesions": [
+      "Microaneurysms",
+      "Hemorrhages",
+      "Hard Exudates",
+      "Cotton Wool Spots"
+    ],
+    "etiology": {
+      "dr_mechanism": "Extensive retinal ischemia and precapillary occlusion (cotton wool spots). High risk of progression.",
+      "dme_mechanism": "Clinically Significant Macular Edema (CSME): exudates/edema involving central fovea."
+    },
+    "recommendation": {
+      "urgency": "URGENT (1-2 Weeks)",
+      "clinical_plan": "Intravitreal Anti-VEGF therapy and/or Panretinal Photocoagulation (PRP)."
+    }
+  },
+  {
+    "image_id": "IDRiD_076_R16",
+    "cohort": "IDRiD (Indian Retinal Cohort)",
+    "dr_grade": 2,
+    "dr_stage": "2 - Moderate NPDR",
+    "dr_confidence": 0.9947,
+    "dme_risk": 1,
+    "dme_stage": "1 - Mild/Moderate DME",
+    "dme_confidence": 0.9873,
+    "identified_lesions": [
+      "Microaneurysms",
+      "Hemorrhages",
+      "Hard Exudates"
+    ],
+    "etiology": {
+      "dr_mechanism": "Significant microvascular permeability with flame/blot hemorrhages and lipid exudation.",
+      "dme_mechanism": "Hard exudates present within 1 disc diameter of foveal center. Macular monitoring required."
+    },
+    "recommendation": {
+      "urgency": "PRIORITY (4-6 Weeks)",
+      "clinical_plan": "Referral for Optical Coherence Tomography (OCT) scan and close monitoring."
+    }
+  },
+  {
+    "image_id": "IDRiD_022_R8",
+    "cohort": "IDRiD (Indian Retinal Cohort)",
+    "dr_grade": 3,
+    "dr_stage": "3 - Severe NPDR",
+    "dr_confidence": 1.0,
+    "dme_risk": 2,
+    "dme_stage": "2 - Severe DME (CSME)",
+    "dme_confidence": 1.0,
+    "identified_lesions": [
+      "Microaneurysms",
+      "Hemorrhages",
+      "Hard Exudates",
+      "Cotton Wool Spots"
+    ],
+    "etiology": {
+      "dr_mechanism": "Extensive retinal ischemia and precapillary occlusion (cotton wool spots). High risk of progression.",
+      "dme_mechanism": "Clinically Significant Macular Edema (CSME): exudates/edema involving central fovea."
+    },
+    "recommendation": {
+      "urgency": "URGENT (1-2 Weeks)",
+      "clinical_plan": "Intravitreal Anti-VEGF therapy and/or Panretinal Photocoagulation (PRP)."
+    }
+  }
+]

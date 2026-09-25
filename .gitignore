@@ -15,6 +15,16 @@ Thumbs.db
 idrid_dataset/
 demo_dataset/train_images/
 
+# Executables & Binaries
+ngrok.exe
+ngrok.zip
+
+# Large Model Checkpoints & Exports over 100MB (GitHub blocks files >100MB)
+outputs/explainable_dr_resnet50.pt
+outputs/idrid/explainable_idrid_multitask_resnet50.pt
+outputs/onnx/
+test_plots/
+
 # Local task and output temp files
 outputs/audit_reports/
 outputs/steps/
