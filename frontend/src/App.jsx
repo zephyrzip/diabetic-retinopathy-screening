@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "./pages/public/Home";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
+import DoctorRegister from "./pages/auth/DoctorRegister";
 
 import OperatorDashboard from "./pages/operator/OperatorDashboard";
 import NewScreening from "./pages/operator/NewScreening";
@@ -23,6 +24,12 @@ function App() {
       {/* Authentication */}
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login />} />
+
+<Route
+  path="/register/doctor"
+  element={<DoctorRegister />}
+/>
 
       {/* Screening Operator */}
       <Route path="/operator" element={<OperatorDashboard />} />

@@ -904,3 +904,220 @@ a {
   gap: 12px;
 }
 }
+
+
+/* ========================================
+   DOCTOR REGISTRATION
+======================================== */
+
+.register-page {
+  min-height: 100vh;
+  background: #f4f8fa;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 50px 20px;
+}
+
+.register-card {
+  width: 100%;
+  max-width: 760px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 42px;
+  box-shadow: 0 15px 45px rgba(20, 40, 60, 0.08);
+}
+
+.register-header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.register-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: #14202e;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 28px;
+}
+
+.register-logo-icon {
+  color: #20a6b3;
+  font-size: 25px;
+}
+
+.register-header h1 {
+  font-size: 30px;
+  color: #14202e;
+  margin-bottom: 8px;
+}
+
+.register-header p {
+  color: #71808e;
+  font-size: 14px;
+}
+
+.form-section {
+  margin-bottom: 30px;
+}
+
+.form-section-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #20a6b3;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e5edf0;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 7px;
+  color: #263746;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #d9e3e7;
+  border-radius: 9px;
+  outline: none;
+  background: #fbfdfe;
+  color: #263746;
+  transition: 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #20a6b3;
+  box-shadow: 0 0 0 3px rgba(32, 166, 179, 0.1);
+}
+
+.file-upload {
+  position: relative;
+  min-height: 52px;
+  border: 1px dashed #b8cbd1;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  background: #f9fcfd;
+  color: #71808e;
+}
+
+.file-upload input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.form-group small {
+  display: block;
+  margin-top: 6px;
+  color: #8a98a4;
+  font-size: 11px;
+}
+
+.password-field {
+  position: relative;
+}
+
+.password-field input {
+  padding-right: 65px;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background: none;
+  color: #20a6b3;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.terms-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #687885;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.terms-checkbox input {
+  accent-color: #20a6b3;
+}
+
+.register-button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 9px;
+  background: #20a6b3;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.register-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(32, 166, 179, 0.25);
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 22px;
+  color: #71808e;
+  font-size: 13px;
+}
+
+.login-link a {
+  margin-left: 5px;
+  color: #20a6b3;
+  font-weight: 700;
+}
+
+@media (max-width: 600px) {
+
+  .register-page {
+    padding: 20px 12px;
+  }
+
+  .register-card {
+    padding: 25px 20px;
+    border-radius: 14px;
+  }
+
+  .register-header h1 {
+    font-size: 24px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
