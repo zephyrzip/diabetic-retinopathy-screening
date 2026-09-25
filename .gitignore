@@ -1,0 +1,21 @@
+# Python virtual environments & bytecode
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE & OS caches
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Large raw datasets (not pushed to GitHub)
+idrid_dataset/
+demo_dataset/train_images/
+
+# Local task and output temp files
+outputs/audit_reports/
+outputs/steps/
+retina_inspection_steps.html
