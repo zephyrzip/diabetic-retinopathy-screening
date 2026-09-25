@@ -64,12 +64,22 @@ export default function DoctorRegister() {
             <span>DR-Screen AI</span>
           </Link>
 
+          <div style={{ display: "inline-block", background: "#e0f2f1", color: "#00695c", padding: "4px 12px", borderRadius: "20px", fontSize: "12px", fontWeight: "700", marginBottom: "12px", letterSpacing: "0.5px" }}>
+            OPHTHALMOLOGIST PROFILE REGISTRATION
+          </div>
+
           <h1>Create Ophthalmologist Account</h1>
 
           <p>
-            Register to review AI-assisted retinal screenings.
+            Register to review AI-assisted retinal screenings and validate clinical reports.
           </p>
 
+          <p style={{ marginTop: "10px", fontSize: "13px", color: "#546e7a" }}>
+            Screening Center Operator?{" "}
+            <Link to="/register" style={{ color: "#087f8c", fontWeight: "600" }}>
+              Register Operator Account →
+            </Link>
+          </p>
         </div>
 
 
@@ -377,8 +387,8 @@ export default function DoctorRegister() {
 
             Already have an account?
 
-            <Link to="/login">
-              Login
+            <Link to="/login/ophthalmologist">
+              Sign in as Ophthalmologist
             </Link>
 
           </p>

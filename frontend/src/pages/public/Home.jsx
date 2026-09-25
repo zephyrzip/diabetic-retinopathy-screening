@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
 import heroBackground from "../../assets/images/hero-background.png";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import LoginRoleModal from "../../components/auth/LoginRoleModal";
 
 export default function Home() {
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
+  const [navDropdownOpen, setNavDropdownOpen] = useState(false);
+
   const featuresRef = useRef(null);
   const workflowRef = useRef(null);
   const ctaRef = useRef(null);
@@ -99,9 +103,76 @@ export default function Home() {
           <a href="#contact">Contact</a>
         </nav>
 
-        <Link to="/login" className="login-button">
-          Professional Login
-        </Link>
+        <div
+          className="navbar-login-container"
+          onMouseEnter={() => setNavDropdownOpen(true)}
+          onMouseLeave={() => setNavDropdownOpen(false)}
+        >
+          <button
+            type="button"
+            className="login-button navbar-login-trigger"
+            onClick={() => setNavDropdownOpen((prev) => !prev)}
+            aria-haspopup="true"
+            aria-expanded={navDropdownOpen}
+          >
+            <span>Professional Login</span>
+            <span className="dropdown-arrow-icon">▾</span>
+          </button>
+
+          {/* Hover Dropdown */}
+          <div className={`navbar-login-dropdown ${navDropdownOpen ? "dropdown-visible" : ""}`}>
+            <div className="dropdown-header">
+              <span className="dropdown-label">Select Login Profile</span>
+            </div>
+
+            {/* Option 1: Ophthalmologist Profile */}
+            <Link
+              to="/login/ophthalmologist"
+              className="dropdown-profile-item"
+              onClick={() => setNavDropdownOpen(false)}
+            >
+              <div className="dropdown-item-icon doctor-icon">
+                <span>🩺</span>
+              </div>
+              <div className="dropdown-item-content">
+                <div className="dropdown-item-title-row">
+                  <strong>Ophthalmologist Profile</strong>
+                  <span className="dropdown-role-tag doctor-tag">Specialist</span>
+                </div>
+                <p>Review AI classifications, Grad-CAM maps & approve clinical diagnoses</p>
+              </div>
+              <span className="dropdown-item-arrow">→</span>
+            </Link>
+
+            {/* Option 2: Screening Operator Profile */}
+            <Link
+              to="/login/operator"
+              className="dropdown-profile-item"
+              onClick={() => setNavDropdownOpen(false)}
+            >
+              <div className="dropdown-item-icon operator-icon">
+                <span>🔬</span>
+              </div>
+              <div className="dropdown-item-content">
+                <div className="dropdown-item-title-row">
+                  <strong>Screening Operator Profile</strong>
+                  <span className="dropdown-role-tag operator-tag">Screening</span>
+                </div>
+                <p>Capture fundus images, check quality & generate AI predictions</p>
+              </div>
+              <span className="dropdown-item-arrow">→</span>
+            </Link>
+
+            <div className="dropdown-footer">
+              <span>New account?</span>
+              <div className="dropdown-register-links">
+                <Link to="/register/doctor" onClick={() => setNavDropdownOpen(false)}>Doctor Signup</Link>
+                <span className="sep">•</span>
+                <Link to="/register" onClick={() => setNavDropdownOpen(false)}>Operator Signup</Link>
+              </div>
+            </div>
+          </div>
+        </div>
 
       </header>
 
@@ -142,9 +213,13 @@ export default function Home() {
 
             <div className="hero-buttons">
 
-              <Link to="/login" className="primary-button">
+              <button
+                type="button"
+                className="primary-button"
+                onClick={() => setLoginModalOpen(true)}
+              >
                 Professional Login →
-              </Link>
+              </button>
 
               <a
                 href="#how-it-works"
@@ -396,9 +471,13 @@ export default function Home() {
     </p>
   </div>
 
-  <Link to="/login" className="primary-button cta-button">
+  <button
+    type="button"
+    className="primary-button cta-button"
+    onClick={() => setLoginModalOpen(true)}
+  >
     Professional Login →
-  </Link>
+  </button>
 
 </section>
 
@@ -430,6 +509,27 @@ export default function Home() {
         AI-assisted retinal screening with
         human-in-the-loop clinical review.
       </p>
+
+      <button
+        type="button"
+        onClick={() => setLoginModalOpen(true)}
+        style={{
+          marginTop: "12px",
+          background: "rgba(32, 166, 179, 0.15)",
+          border: "1px solid rgba(32, 166, 179, 0.4)",
+          color: "#20a6b3",
+          padding: "7px 14px",
+          borderRadius: "6px",
+          fontSize: "12px",
+          fontWeight: "600",
+          cursor: "pointer",
+          transition: "0.2s ease",
+        }}
+        onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(32, 166, 179, 0.28)")}
+        onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(32, 166, 179, 0.15)")}
+      >
+        Professional Login Portal →
+      </button>
     </div>
 
   </div>
@@ -452,6 +552,12 @@ export default function Home() {
   </div>
 
 </footer>
+
+      {/* Login Role Selector Modal */}
+      <LoginRoleModal
+        isOpen={loginModalOpen}
+        onClose={() => setLoginModalOpen(false)}
+      />
     </div>
   );
 }
