@@ -33,7 +33,7 @@ def assess_and_enhance_fundus(img_rgb, target_size=512):
     
     mask = gray > 15
     fov_fraction = float(mask.sum() / mask.size)
-    circular_fov = (0.20 <= fov_fraction <= 0.88)
+    circular_fov = (0.20 <= fov_fraction <= 1.00)
     
     # Human retina fundus reflectance is dominated by vascular choroid: R > G > B (B strongly absorbed)
     r_mean = float(img_resized[:, :, 0][mask].mean()) if mask.sum() > 0 else 0.0

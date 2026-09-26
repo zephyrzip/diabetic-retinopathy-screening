@@ -95,8 +95,35 @@ def run_pipeline(image_bytes: bytes) -> dict:
                 "focus_score": round(float(q_info.get("focus_score", 0.0)), 2),
                 "retinal_fov_pct": round(float(q_info.get("fov_fraction", 0.0)) * 100, 1),
                 "rgb_means": [round(float(c), 1) for c in q_info.get("rgb_means", [0, 0, 0])]
-            }
+            },
+            "inspection_steps": [
+                {
+                    "step_number": 1,
+                    "id": "quality_control",
+                    "name": "Optical Quality & Chromaticity Gate",
+                    "status": "failed",
+                    "description": "Validates optical spectrum, focus sharpness, and Field of View.",
+                    "what_is_checked": "Ensures the input is a genuine in-focus human retinal fundus photo, preventing misdiagnosis on non-retinal images.",
+                    "failure_reason": "Image failed human retinal chromaticity spectrum or field-of-view check.",
+                    "metrics": {
+                        "is_retina": False,
+                        "focus_score": round(float(q_info.get("focus_score", 0.0)), 2),
+                        "retinal_fov_pct": round(float(q_info.get("fov_fraction", 0.0)) * 100, 1),
+                        "rgb_means": [round(float(c), 1) for c in q_info.get("rgb_means", [0, 0, 0])]
+                    }
+                },
+                {"step_number": 2, "id": "optical_enhancement", "name": "Adaptive Retinal Preprocessing", "status": "skipped", "what_is_checked": "Green-channel CLAHE & Ben Graham illumination subtraction."},
+                {"step_number": 3, "id": "vessel_segmentation", "name": "DRIVE Retinal Vessel Tree Segmentation", "status": "skipped", "what_is_checked": "U-Net capillary segmentation & tortuosity index."},
+                {"step_number": 4, "id": "dr_grading", "name": "Diabetic Retinopathy Severity Grading", "status": "skipped", "what_is_checked": "EfficientNet-B0 + ResNet-50 ensemble (Grades 0-4)."},
+                {"step_number": 5, "id": "dme_and_lesions", "name": "Macular Edema & Hallmark Lesion Profiling", "status": "skipped", "what_is_checked": "IDRiD DME risk and 5 hallmark lesions."},
+                {"step_number": 6, "id": "explainability", "name": "Layer4 Grad-CAM Visual Explainability", "status": "skipped", "what_is_checked": "Gradient-weighted activation heatmap."},
+                {"step_number": 7, "id": "clinical_triage", "name": "Clinical Referral & Triage Decision", "status": "skipped", "what_is_checked": "Referral urgency and intervention action plan."}
+            ]
         }
+
+    # Encode enhanced fundus image to base64 PNG
+    _, enh_buf = cv2.imencode(".png", cv2.cvtColor(enhanced_512, cv2.COLOR_RGB2BGR))
+    enhanced_base64 = "data:image/png;base64," + base64.b64encode(enh_buf).decode("utf-8")
 
     # 3. Stage 2: DRIVE Retinal Blood Vessel Segmentation (U-Net)
     vessel_input = cv2.resize(raw_rgb, (256, 256))
@@ -172,6 +199,98 @@ def run_pipeline(image_bytes: bytes) -> dict:
         "Normal or non-referable early finding. Recommend continuous glycemic, lipid, and blood pressure control with standard annual retinal monitoring."
     )
 
+    # Step-by-Step Clinical Checking Pipeline for Frontend Stepper Display
+    inspection_steps = [
+        {
+            "step_number": 1,
+            "id": "quality_control",
+            "name": "Optical Quality & Chromaticity Gate",
+            "status": "passed",
+            "description": "Validates optical spectrum, focus sharpness, and Field of View.",
+            "what_is_checked": "Ensures the input is a genuine in-focus human retinal fundus photo, preventing misdiagnosis on non-retinal images.",
+            "metrics": {
+                "is_retina": True,
+                "focus_score": round(float(q_info.get("focus_score", 0.0)), 2),
+                "retinal_fov_pct": round(float(q_info.get("fov_fraction", 0.0)) * 100, 1),
+                "rgb_means": [round(float(c), 1) for c in q_info.get("rgb_means", [0, 0, 0])]
+            }
+        },
+        {
+            "step_number": 2,
+            "id": "optical_enhancement",
+            "name": "Adaptive Retinal Preprocessing",
+            "status": "passed",
+            "description": "Applies Green-channel CLAHE and Ben Graham color constancy normalization.",
+            "what_is_checked": "Maximizes optical contrast for microvascular lesions while subtracting camera flash non-uniformities.",
+            "visualization": enhanced_base64
+        },
+        {
+            "step_number": 3,
+            "id": "vessel_segmentation",
+            "name": "DRIVE Retinal Vessel Tree Segmentation",
+            "status": "passed",
+            "description": "U-Net encoder-decoder segmenting retinal capillary bed and computing vascular biomarkers.",
+            "what_is_checked": "Quantifies capillary dropout (ischemia), tortuosity index (endothelial stress), and neovascularization.",
+            "metrics": {
+                "vessel_density_pct": round(float(vessel_biomarkers.get("vessel_density_pct", 15.0)), 2),
+                "tortuosity_index": round(float(vessel_biomarkers.get("tortuosity_index", 1.15)), 2),
+                "neovascularization_flag": bool(vessel_biomarkers.get("neovascularization_flag", False))
+            },
+            "visualization": vessel_base64
+        },
+        {
+            "step_number": 4,
+            "id": "dr_grading",
+            "name": "Diabetic Retinopathy Severity Grading",
+            "status": "passed",
+            "description": "Dual-architecture soft-voting ensemble (EfficientNet-B0 + ResNet-50) over ICDR 5-tier scale.",
+            "what_is_checked": "Evaluates overall retinopathy severity from Grade 0 (No DR) to Grade 4 (Proliferative DR).",
+            "metrics": {
+                "dr_grade": int(pred_dr),
+                "dr_label": DR_GRADE_NAMES[pred_dr],
+                "confidence": round(float(dr_probs[pred_dr]), 3),
+                "is_referable": is_referable
+            }
+        },
+        {
+            "step_number": 5,
+            "id": "dme_and_lesions",
+            "name": "Macular Edema & Hallmark Lesion Profiling",
+            "status": "passed",
+            "description": "Multi-task ResNet-50 profiling DME risk and estimating probabilities for 5 hallmark lesions.",
+            "what_is_checked": "Detects central macular foveal threat and individual microaneurysms, hemorrhages, hard exudates, cotton wool spots, and neovascularization.",
+            "metrics": {
+                "dme_grade": int(pred_dme),
+                "dme_label": DME_RISK_NAMES[pred_dme],
+                "dme_confidence": round(float(dme_probs[pred_dme]), 3),
+                "lesions": {
+                    name: round(float(prob), 3) for name, prob in zip(BIOMARKER_NAMES, bio_probs)
+                }
+            }
+        },
+        {
+            "step_number": 6,
+            "id": "explainability",
+            "name": "Layer4 Grad-CAM Visual Explainability",
+            "status": "passed",
+            "description": "Gradient-weighted Class Activation Map backpropagated to deep convolutional feature maps.",
+            "what_is_checked": "Pinpoints the exact pathological clusters and pixel regions that motivated the AI diagnosis.",
+            "visualization": gradcam_base64
+        },
+        {
+            "step_number": 7,
+            "id": "clinical_triage",
+            "name": "Clinical Referral & Triage Decision",
+            "status": "passed",
+            "description": "Automated triage protocol mapping severity to clinical urgency and intervention action plans.",
+            "what_is_checked": "Determines urgent hospital referral window (e.g. 1-2 weeks for severe cases vs routine annual screening).",
+            "metrics": {
+                "referral_urgency": urgency,
+                "action_plan": recommendation
+            }
+        }
+    ]
+
     return {
         "status": "success",
         "latency_sec": total_time,
@@ -202,7 +321,10 @@ def run_pipeline(image_bytes: bytes) -> dict:
             }
         },
         "visualizations": {
-            "gradcam_base64": gradcam_base64,
-            "vessel_mask_base64": vessel_base64
-        }
+            "enhanced_fundus_base64": enhanced_base64,
+            "vessel_mask_base64": vessel_base64,
+            "gradcam_base64": gradcam_base64
+        },
+        "inspection_steps": inspection_steps
     }
+

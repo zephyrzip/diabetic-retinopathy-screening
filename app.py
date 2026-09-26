@@ -12,7 +12,7 @@ Endpoints:
 import os
 from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
 import torch
 
 from pipeline_service import run_pipeline, DEVICE
@@ -35,16 +35,27 @@ app.add_middleware(
 )
 
 
+@app.get("/inspect", response_class=FileResponse, tags=["Inspection UI"])
+def get_inspection_ui():
+    """Serves the interactive Step-by-Step Retinal Checking UI directly in browser."""
+    html_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "retina_inspection_steps.html")
+    if os.path.exists(html_file):
+        return FileResponse(html_file, media_type="text/html")
+    raise HTTPException(status_code=404, detail="retina_inspection_steps.html not found.")
+
+
 @app.get("/", tags=["General"])
 def index():
     return {
         "service": "RetinaScan AI Clinical Diagnostic API",
         "status": "online",
         "device": str(DEVICE),
+        "interactive_ui": "/inspect",
         "docs_url": "/docs",
         "redoc_url": "/redoc",
         "endpoints": {
             "predict": "POST /api/v1/predict",
+            "inspect_ui": "GET /inspect",
             "health": "GET /api/v1/health"
         }
     }
